@@ -1,156 +1,243 @@
+
 import { motion as Motion } from 'framer-motion'
+import {
+  MapPin,
+  Coffee,
+  ArrowUpRight,
+  Navigation
+} from 'lucide-react'
 
 export default function CTABanner() {
   return (
-    <section style={{
-      position:        'relative',
-      backgroundColor: '#1c0e04',
-      overflowX:       'clip',
-      minHeight:       '320px',
-      display:         'flex',
-      alignItems:      'center',
-    }}>
-
-      {/* Noise grain */}
-      <div style={{
-        position:        'absolute',
-        inset:           0,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        backgroundSize:  '300px 300px',
-        opacity:         0.07,
-        pointerEvents:   'none',
-      }} />
-
-      {/* Spoon — floats ON TOP of the card, levitating animation */}
-      <Motion.img
-        src={import.meta.env.BASE_URL + "spoon.png"}
-        alt=""
-        aria-hidden
-        draggable={false}
-        animate={{ y: [0, -16, 0] }}
-        transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+    <section
+      id="visit"
+      style={{
+        position: 'relative',
+        background: '#24150d',
+        padding: '100px 6% 35px',
+        overflow: 'hidden',
+        scrollMarginTop: '90px',
+      }}
+    >
+      {/* Decorative background glow */}
+      <div
+        aria-hidden="true"
         style={{
-          position:     'absolute',
-          right:        '-280px',
-          bottom:       '10px',
-          width:        'clamp(728px, 78vw, 1066px)',
-          height:       'auto',
-          zIndex:       20,
-          pointerEvents:'none',
-          userSelect:   'none',
+          position: 'absolute',
+          width: '500px',
+          height: '500px',
+          borderRadius: '50%',
+          background:
+            'radial-gradient(circle, rgba(214,169,110,0.12), transparent 70%)',
+          top: '-180px',
+          right: '-150px',
+          pointerEvents: 'none',
         }}
       />
 
-      {/* ── Content ── */}
-      <div style={{
-        position:  'relative',
-        width:     '100%',
-        maxWidth:  '1200px',
-        margin:    '0 auto',
-        padding:   'clamp(32px, 5vh, 56px) clamp(24px, 6vw, 80px)',
-        display:   'flex',
-        flexDirection: 'column',
-        gap:       '0',
-      }}>
-
-        {/* Glass card */}
+      <div
+        style={{
+          position: 'relative',
+          maxWidth: '1100px',
+          margin: '0 auto',
+        }}
+      >
+        {/* Main CTA card */}
         <Motion.div
-          initial={{ opacity: 0, x: -32 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7 }}
           style={{
-            width:                '100%',
-            padding:              'clamp(24px, 3.5vw, 40px)',
-            borderRadius:         '20px',
-            background:           'rgba(232, 213, 183, 0.10)',
-            backdropFilter:       'blur(18px)',
-            WebkitBackdropFilter: 'blur(18px)',
-            border:               '1px solid rgba(232, 213, 183, 0.18)',
-            boxShadow:            '0 8px 32px rgba(0,0,0,0.35)',
-            display:              'flex',
-            flexDirection:        'column',
-            gap:                  '20px',
+            background:
+              'linear-gradient(135deg, #493022, #342116)',
+            border: '1px solid rgba(232,213,183,0.18)',
+            borderRadius: '26px',
+            padding: 'clamp(30px, 6vw, 70px)',
+            textAlign: 'center',
+            boxShadow: '0 15px 45px rgba(0,0,0,0.2)',
           }}
         >
-          {/* Heading */}
-          <h2 style={{
-            fontFamily:   '"Playfair Display", serif',
-            fontWeight:   700,
-            fontSize:     'clamp(1.35rem, 2.4vw, 2rem)',
-            color:        '#f0e2c8',
-            margin:       0,
-            lineHeight:   1.25,
-          }}>
-            Find out which coffee suits you best
+          <Motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{
+              duration: 3.5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            style={{
+              width: '65px',
+              height: '65px',
+              borderRadius: '50%',
+              background: 'rgba(214,169,110,0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 25px',
+            }}
+          >
+            <Coffee size={30} color="#d6a96e" />
+          </Motion.div>
+
+          <p
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              color: '#d6a96e',
+              fontSize: '12px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              fontWeight: 700,
+              marginBottom: '16px',
+            }}
+          >
+            Come Say Hello
+          </p>
+
+          <h2
+            style={{
+              fontFamily: '"Playfair Display", serif',
+              fontSize: 'clamp(36px, 5vw, 62px)',
+              lineHeight: 1.15,
+              color: '#f2e4cf',
+              margin: '0 0 22px',
+            }}
+          >
+            See You at the Corner.
           </h2>
 
-          {/* CTA button */}
-          <div>
+          <p
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              color: '#cbb49b',
+              fontSize: '16px',
+              lineHeight: 1.8,
+              maxWidth: '540px',
+              margin: '0 auto 32px',
+            }}
+          >
+            Whether you're grabbing your morning coffee,
+            meeting friends for lunch, or taking a break
+            from studying, we'd love to see you.
+          </p>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '14px',
+              flexWrap: 'wrap',
+            }}
+          >
             <a
-              href="#"
+              href="https://www.google.com/maps/search/?api=1&query=The+Corner+Market+Fairfield+CT"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
-                display:        'inline-flex',
-                alignItems:     'center',
-                padding:        '11px 28px',
-                borderRadius:   '999px',
-                border:         '1px solid rgba(232,213,183,0.40)',
-                background:     'rgba(232,213,183,0.08)',
-                color:          '#e8d5b7',
-                fontFamily:     'Inter, sans-serif',
-                fontSize:       '14px',
-                fontWeight:     500,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '9px',
+                padding: '15px 25px',
+                borderRadius: '999px',
+                background: '#d6a96e',
+                color: '#24150d',
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: 700,
+                fontSize: '14px',
                 textDecoration: 'none',
-                letterSpacing:  '0.01em',
-                transition:     'background 0.18s, border-color 0.18s',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background   = 'rgba(232,213,183,0.16)'
-                e.currentTarget.style.borderColor  = 'rgba(232,213,183,0.60)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background   = 'rgba(232,213,183,0.08)'
-                e.currentTarget.style.borderColor  = 'rgba(232,213,183,0.40)'
               }}
             >
-              Take the test
+              <Navigation size={17} />
+              Get Directions
             </a>
+
+            <a
+              href="https://www.thecornermarketct.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '9px',
+                padding: '15px 25px',
+                borderRadius: '999px',
+                border: '1px solid rgba(232,213,183,0.4)',
+                color: '#f2e4cf',
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: 600,
+                fontSize: '14px',
+                textDecoration: 'none',
+              }}
+            >
+              Official Website
+              <ArrowUpRight size={17} />
+            </a>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              marginTop: '32px',
+              color: '#cbb49b',
+              fontSize: '14px',
+            }}
+          >
+            <MapPin size={17} color="#d6a96e" />
+            Fairfield, Connecticut
           </div>
         </Motion.div>
 
-        {/* Social links */}
-        <Motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.25 }}
+        {/* Footer */}
+        <footer
           style={{
-            marginTop:  '20px',
-            display:    'flex',
-            gap:        '20px',
-            flexWrap:   'wrap',
+            marginTop: '65px',
+            paddingTop: '25px',
+            borderTop: '1px solid rgba(232,213,183,0.15)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '20px',
+            flexWrap: 'wrap',
           }}
         >
-          {['Coffee news', 'Telegram', 'Instagram'].map((label) => (
-            <a
-              key={label}
-              href="#"
+          <div>
+            <p
               style={{
-                fontFamily:     'Inter, sans-serif',
-                fontSize:       '12px',
-                color:          'rgba(200, 170, 120, 0.50)',
-                textDecoration: 'underline',
-                textUnderlineOffset: '3px',
-                transition:     'color 0.18s',
+                fontFamily: 'Manrope, sans-serif',
+                fontWeight: 800,
+                color: '#f2e4cf',
+                fontSize: '15px',
+                margin: '0 0 6px',
               }}
-              onMouseEnter={e => e.currentTarget.style.color = 'rgba(232,213,183,0.75)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(200, 170, 120, 0.50)'}
             >
-              {label}
-            </a>
-          ))}
-        </Motion.div>
+              THE CORNER MARKET
+            </p>
+            <p
+              style={{
+                color: '#9e876f',
+                fontSize: '12px',
+                margin: 0,
+              }}
+            >
+              Fairfield, Connecticut
+            </p>
+          </div>
 
+          <p
+            style={{
+              color: '#9e876f',
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '12px',
+              margin: 0,
+            }}
+          >
+            Unofficial student website concept.
+            Not affiliated with The Corner Market.
+          </p>
+        </footer>
       </div>
     </section>
   )
