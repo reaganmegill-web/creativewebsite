@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
-import { Menu as MenuIcon, X, MapPin, ArrowUpRight, Coffee, Clock, Instagram } from 'lucide-react'
+import { Menu as MenuIcon, X, MapPin, ArrowUpRight, Coffee, Clock, Camera } from "lucide-react";
 
 // Student concept. Photography below is illustrative, not sourced from the business.
 const PHOTO = {
