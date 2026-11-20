@@ -1,199 +1,252 @@
+
 import { useState } from 'react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
-import { User, ShoppingCart, Menu, X } from 'lucide-react'
+import { Menu, X, ExternalLink } from 'lucide-react'
 
-const links = ['Home', 'Menu', 'About Us', 'Reviews', 'Promotions']
+const links = [
+  { label: 'Home', href: '#home' },
+  { label: 'Menu', href: '#menu' },
+  { label: 'About', href: '#about' },
+  { label: 'Visit Us', href: '#visit' },
+]
 
 export default function Navbar() {
-  const [active, setActive]     = useState('Home')
+  const [active, setActive] = useState('Home')
   const [mobileOpen, setMobile] = useState(false)
+
+  const handleNavigation = (label) => {
+    setActive(label)
+    setMobile(false)
+  }
+
+  const linkStyle = (label) => ({
+    padding: '9px 18px',
+    borderRadius: '999px',
+    fontSize: '13px',
+    fontWeight: active === label ? 700 : 500,
+    color: active === label ? '#fff8ed' : '#d4c1a8',
+    background:
+      active === label
+        ? 'rgba(255,255,255,0.13)'
+        : 'transparent',
+    textDecoration: 'none',
+    transition: 'all 0.2s ease',
+    whiteSpace: 'nowrap',
+  })
 
   return (
     <Motion.header
       initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0,   opacity: 1 }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.55 }}
       style={{
-        position:       'fixed',
-        top:            0,
-        left:           0,
-        right:          0,
-        zIndex:         50,
-        display:        'flex',
-        alignItems:     'center',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'space-between',
-        padding:        '20px 48px',
-        fontFamily:     'Inter, sans-serif',
+        padding: '18px 5%',
+        background: 'rgba(28,16,8,0.94)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(232,213,183,0.12)',
+        fontFamily: 'Inter, sans-serif',
       }}
     >
-      {/* ── Logo ── */}
-      <a href="#" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}>
+      {/* Brand */}
+      <a
+        href="#home"
+        onClick={() => handleNavigation('Home')}
+        style={{
+          textDecoration: 'none',
+          color: '#f1e3ce',
+          display: 'flex',
+          flexDirection: 'column',
+          lineHeight: 1.2,
+          flexShrink: 0,
+        }}
+      >
         <span style={{
-          fontFamily:    'Manrope, sans-serif',
-          fontWeight:    900,
-          fontSize:      '1.5rem',
-          color:         '#e8d5b7',
-          letterSpacing: '0.14em',
-          textTransform: 'uppercase',
-          lineHeight:    1,
+          fontFamily: 'Manrope, sans-serif',
+          fontSize: '17px',
+          fontWeight: 900,
+          letterSpacing: '0.08em',
         }}>
-          BRWW
+          THE CORNER MARKET
+        </span>
+        <span style={{
+          fontSize: '9px',
+          letterSpacing: '0.27em',
+          textTransform: 'uppercase',
+          color: '#bda88d',
+          marginTop: '4px',
+        }}>
+          FAIRFIELD, CONNECTICUT
         </span>
       </a>
 
-      {/* ── Centre pill nav ── */}
-      <nav style={{
-        display:              'none',
-        alignItems:           'center',
-        gap:                  '4px',
-        padding:              '6px 8px',
-        borderRadius:         '999px',
-        background:           'rgba(26, 14, 6, 0.70)',
-        backdropFilter:       'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        border:               '1px solid rgba(232, 213, 183, 0.13)',
-        boxShadow:            '0 2px 20px rgba(0,0,0,0.4)',
-      }}
-      className="nav-pill"
+      {/* Desktop Navigation */}
+      <nav
+        className="corner-desktop-nav"
+        aria-label="Main navigation"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+          padding: '5px',
+          borderRadius: '999px',
+          background: 'rgba(255,255,255,0.06)',
+          border: '1px solid rgba(255,255,255,0.08)',
+        }}
       >
-        {links.map((label) => (
+        {links.map(({ label, href }) => (
           <a
             key={label}
-            href="#"
-            onClick={(e) => { e.preventDefault(); setActive(label) }}
-            style={{
-              padding:       '7px 20px',
-              borderRadius:  '999px',
-              fontSize:      '14px',
-              fontWeight:    active === label ? 600 : 400,
-              color:         active === label ? '#f0e2c8' : '#a08868',
-              background:    active === label ? 'rgba(232, 213, 183, 0.12)' : 'transparent',
-              textDecoration:'none',
-              transition:    'color 0.18s, background 0.18s',
-              whiteSpace:    'nowrap',
-            }}
-            onMouseEnter={e => { if (label !== active) e.currentTarget.style.color = '#d4bb96' }}
-            onMouseLeave={e => { if (label !== active) e.currentTarget.style.color = '#a08868' }}
+            href={href}
+            onClick={() => handleNavigation(label)}
+            style={linkStyle(label)}
           >
             {label}
           </a>
         ))}
       </nav>
 
-      {/* ── Right actions ── */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }} className="nav-actions">
-        <button style={{
-          background: 'rgba(26,14,6,0.70)', border: '1px solid rgba(232,213,183,0.20)',
-          borderRadius: '50%', cursor: 'pointer',
-          width: '38px', height: '38px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#e8d5b7', transition: 'background 0.18s, border-color 0.18s',
-          backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+      {/* Desktop Action */}
+      <a
+        className="corner-desktop-order"
+        href="https://www.thecornermarketct.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '11px 20px',
+          borderRadius: '999px',
+          background: '#e8d5b7',
+          color: '#27180d',
+          fontSize: '13px',
+          fontWeight: 700,
+          textDecoration: 'none',
+          whiteSpace: 'nowrap',
         }}
-          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(232,213,183,0.15)'; e.currentTarget.style.borderColor = 'rgba(232,213,183,0.45)' }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'rgba(26,14,6,0.70)';     e.currentTarget.style.borderColor = 'rgba(232,213,183,0.20)' }}
-        >
-          <User size={17} strokeWidth={1.8} />
-        </button>
-        <button style={{
-          background: 'rgba(26,14,6,0.70)', border: '1px solid rgba(232,213,183,0.20)',
-          borderRadius: '50%', cursor: 'pointer',
-          width: '38px', height: '38px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#e8d5b7', transition: 'background 0.18s, border-color 0.18s',
-          backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-        }}
-          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(232,213,183,0.15)'; e.currentTarget.style.borderColor = 'rgba(232,213,183,0.45)' }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'rgba(26,14,6,0.70)';     e.currentTarget.style.borderColor = 'rgba(232,213,183,0.20)' }}
-        >
-          <ShoppingCart size={17} strokeWidth={1.8} />
-        </button>
-        <a href="#" style={{
-          marginLeft:           '4px',
-          padding:              '9px 22px',
-          borderRadius:         '999px',
-          fontSize:             '14px',
-          fontWeight:           600,
-          color:                '#1c0e04',
-          background:           '#e8d5b7',
-          textDecoration:       'none',
-          transition:           'background 0.18s, transform 0.15s',
-          whiteSpace:           'nowrap',
-          boxShadow:            '0 2px 12px rgba(0,0,0,0.5)',
-        }}
-          onMouseEnter={e => { e.currentTarget.style.background = '#f5e8cc'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-          onMouseLeave={e => { e.currentTarget.style.background = '#e8d5b7'; e.currentTarget.style.transform = 'translateY(0)' }}
-        >
-          Order Now
-        </a>
-      </div>
-
-      {/* ── Mobile toggle ── */}
-      <button
-        onClick={() => setMobile(!mobileOpen)}
-        style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#e8d5b7', padding: '4px' }}
-        className="mobile-toggle"
       >
-        {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+        Visit Official Site
+        <ExternalLink size={14} />
+      </a>
+
+      {/* Mobile Toggle */}
+      <button
+        className="corner-mobile-toggle"
+        type="button"
+        aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={mobileOpen}
+        onClick={() => setMobile(!mobileOpen)}
+        style={{
+          display: 'none',
+          background: 'transparent',
+          border: 'none',
+          color: '#f1e3ce',
+          cursor: 'pointer',
+          padding: '8px',
+        }}
+      >
+        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      {/* ── Mobile dropdown ── */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <Motion.div
+          <Motion.nav
+            aria-label="Mobile navigation"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{   opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
             style={{
-              position:             'absolute',
-              top:                  '100%',
-              left:                 '16px',
-              right:                '16px',
-              marginTop:            '8px',
-              padding:              '12px',
-              borderRadius:         '16px',
-              background:           'rgba(16, 8, 2, 0.97)',
-              backdropFilter:       'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border:               '1px solid rgba(232, 213, 183, 0.10)',
-              boxShadow:            '0 8px 32px rgba(0,0,0,0.6)',
+              position: 'absolute',
+              top: '100%',
+              left: '16px',
+              right: '16px',
+              padding: '16px',
+              borderRadius: '16px',
+              background: '#24160e',
+              border: '1px solid rgba(255,255,255,0.1)',
+              boxShadow: '0 12px 30px rgba(0,0,0,0.3)',
             }}
           >
-            {links.map((label) => (
-              <a key={label} href="#"
-                onClick={(e) => { e.preventDefault(); setActive(label); setMobile(false) }}
+            {links.map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                onClick={() => handleNavigation(label)}
                 style={{
-                  display: 'block', padding: '10px 16px', borderRadius: '10px',
-                  fontSize: '14px', fontWeight: 500, textDecoration: 'none',
-                  color: active === label ? '#e8d5b7' : '#a08868',
-                  background: active === label ? 'rgba(232,213,183,0.08)' : 'transparent',
+                  display: 'block',
+                  padding: '13px 16px',
+                  borderRadius: '8px',
+                  color: '#f1e3ce',
+                  textDecoration: 'none',
+                  fontSize: '15px',
+                  background:
+                    active === label
+                      ? 'rgba(255,255,255,0.08)'
+                      : 'transparent',
                 }}
               >
                 {label}
               </a>
             ))}
-            <a href="#" style={{
-              display: 'block', marginTop: '8px', padding: '11px',
-              textAlign: 'center', borderRadius: '999px',
-              background: '#5b7566', color: '#f0e8d8',
-              fontSize: '14px', fontWeight: 600, textDecoration: 'none',
-            }}>
-              Order Now
+
+            <a
+              href="https://www.thecornermarketct.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobile(false)}
+              style={{
+                display: 'block',
+                marginTop: '12px',
+                padding: '13px',
+                textAlign: 'center',
+                borderRadius: '999px',
+                background: '#e8d5b7',
+                color: '#27180d',
+                fontWeight: 700,
+                textDecoration: 'none',
+              }}
+            >
+              Visit Official Site ↗
             </a>
-          </Motion.div>
+          </Motion.nav>
         )}
       </AnimatePresence>
 
-      {/* ── Responsive show/hide via style tag ── */}
       <style>{`
-        @media (min-width: 768px) {
-          .nav-pill    { display: flex !important; }
-          .nav-actions { display: flex !important; }
-          .mobile-toggle { display: none !important; }
+        html {
+          scroll-behavior: smooth;
         }
-        @media (max-width: 767px) {
-          .nav-pill    { display: none !important; }
-          .nav-actions { display: none !important; }
-          .mobile-toggle { display: flex !important; }
+
+        section[id] {
+          scroll-margin-top: 100px;
+        }
+
+        @media (max-width: 1050px) {
+          .corner-desktop-nav,
+          .corner-desktop-order {
+            display: none !important;
+          }
+
+          .corner-mobile-toggle {
+            display: flex !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .corner-mobile-toggle {
+            margin-left: 12px;
+            flex-shrink: 0;
+          }
         }
       `}</style>
     </Motion.header>
